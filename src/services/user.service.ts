@@ -1,3 +1,4 @@
+import AuthUsers from "../models/auth.model";
 import User from "../models/user.model";
 import { Op } from "sequelize";
 
@@ -30,7 +31,7 @@ class UserService {
             limit: perPage
         });
         // console.log('Users', count)
-        return {        
+        return {
             users: rows,
             pagination: {
                 total: count,
@@ -49,6 +50,22 @@ class UserService {
         console.log('Updating user:', id);
         await user.update(data);
         return user;
+    }
+
+    async deleteUser(id: number): Promise<{ success: true, message: string }> {
+        try {
+            const user = await AuthUsers.findByPk(id);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            await user.destroy();
+            return {
+                success: true,
+                message: "Deleted successfully"
+            };
+        } catch (error) {
+            throw new Error("Deletion failed");
+        }
     }
 }
 

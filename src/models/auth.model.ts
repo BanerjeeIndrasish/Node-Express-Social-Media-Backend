@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db";
 
-const Auth = sequelize.define('users', {
+const AuthUsers = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true
@@ -23,4 +23,4 @@ const Auth = sequelize.define('users', {
         timestamps: false
     })
 
-export default Auth;
+export default AuthUsers;

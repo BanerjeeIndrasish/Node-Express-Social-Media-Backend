@@ -26,6 +26,19 @@ class UserController {
             res.status(500).json({ message: "Internal Server Error", error: error });
         }
     }
+
+    async deleteUser(req: Request, res: Response): Promise<void> {
+        try {
+            console.log('Delete request');
+            const { id } = req.params;
+            const numID = parseInt(id);
+            const result = await userService.deleteUser(numID);
+            res.status(200).json(result);
+        } catch (error) {
+            console.error('Error in controller', error);
+            res.status(500).json({ message: "Internal Server Error", error: error });
+        }
+    }
 }
 
 export default new UserController();
