@@ -1,7 +1,7 @@
 
 
-class Upload(){
+// class Upload(){
     
-}
+// }
 
-export default new Upload();
+// export default new Upload();
