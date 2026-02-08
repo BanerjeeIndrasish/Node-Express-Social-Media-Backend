@@ -2,6 +2,26 @@ import { Request, Response } from "express";
 import userService from "../services/user.service";
 
 class UserController {
+    async getMe(req: any, res: Response): Promise<void> {
+        try {
+            if (!req.user) {
+                res.status(401).json({ message: "Unauthorized" });
+                return;
+            }
+            
+            const userId = req.user?.id;
+
+            const user = await userService.getUserById(userId);
+
+            res.status(200).json({
+                success: true,
+                data: user,
+            });
+        } catch (error: any) {
+            res.status(500).json({ success: false, message: error.message  || "Failed to fetch user" });
+        }
+    }
+
     async getUsers(req: Request, res: Response): Promise<void> {
         try {
             const { page = '1', perPage = '10', search = '' } = req.query;

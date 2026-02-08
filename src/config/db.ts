@@ -11,8 +11,8 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST,
         port: Number(process.env.DB_PORT) || 3306,
         dialect: "mysql",
-        logging: false, // set true if you want SQL logs
-    }
+        logging: false, // no SQL logs,
+    },
 );
 
 export default sequelize;

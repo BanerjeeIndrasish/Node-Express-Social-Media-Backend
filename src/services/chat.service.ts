@@ -1,6 +1,7 @@
 // In your chat.service.ts (Socket.IO setup file)
 import { Server } from "socket.io";
 import { Server as HTTPServer } from "http";
+import OpenAI from "openai";
 
 export const setupSocket = (server: HTTPServer) => {
   const io = new Server(server, {
@@ -47,3 +48,22 @@ export const setupSocket = (server: HTTPServer) => {
 
   return io;
 };
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Store in .env file
+});
+
+export const askGPT = async (req: any, res: any) => {
+  try {
+    const { message } = req.body;
+    console.log('Message', message);
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: message }],
+    });
+
+    res.json({ reply: completion.choices[0].message.content });
+  } catch (error) {
+    res.status(500).json({ error: error, message: 'Failed to get response' });
+  }
+}

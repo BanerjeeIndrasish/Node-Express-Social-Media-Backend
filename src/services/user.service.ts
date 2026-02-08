@@ -1,4 +1,3 @@
-import AuthUsers from "../models/auth.model";
 import User from "../models/user.model";
 import { Op } from "sequelize";
 
@@ -15,6 +14,18 @@ interface PaginatedUsers {
 }
 
 class UserService {
+    async getUserById(userId: number) {
+        const user = await User.findByPk(userId, {
+            attributes: { exclude: ["password_hash"] },
+        });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return user;
+    }
+
     async getAllUsers(page: number = 1, perPage: number = 10, search: string = ''): Promise<PaginatedUsers> {
         const offset = (page - 1) * perPage
 
@@ -54,7 +65,7 @@ class UserService {
 
     async deleteUser(id: number): Promise<{ success: true, message: string }> {
         try {
-            const user = await AuthUsers.findByPk(id);
+            const user = await User.findByPk(id);
             if (!user) {
                 throw new Error('User not found');
             }

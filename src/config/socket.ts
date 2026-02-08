@@ -1,6 +1,5 @@
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 
-
 // Initialize WhatsApp Client
 const WhatsappClient = new Client({
     authStrategy: new LocalAuth({
