@@ -13,3 +13,6 @@ build/
 
 # Env files
 .env
+
+# Folders
+.uploads/
