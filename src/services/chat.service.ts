@@ -1,4 +1,3 @@
-// In your chat.service.ts (Socket.IO setup file)
 import { Server } from "socket.io";
 import { Server as HTTPServer } from "http";
 import OpenAI from "openai";
@@ -50,7 +49,7 @@ export const setupSocket = (server: HTTPServer) => {
 };
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Store in .env file
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export const askGPT = async (req: any, res: any) => {
