@@ -26,11 +26,9 @@ app.get("/api/health", (_, res) => {
 });
 
 app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes)
-app.use("/api/posts", postRoutes)
-
-
-// app.use("/api/ask-gpt", askGPT);
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+app.post("/api/ask-gpt", askGPT);
 // app.use("/api/otp", otpRoutes)
 
 export default app;
